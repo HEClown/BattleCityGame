@@ -22,9 +22,9 @@ public class PlayerTank extends Tank {
         this.animTimer = 0.0f;
         this.isMove = false;
         this.frameIndex = 0;
-        this.position = new Vector2(900, 150);
-        this.speed = 150;
-        this.reloadTime = 1.5f;
+        this.position = new Vector2(640, 100);
+        this.speed = 100;
+        this.reloadTime = 1.0f;
         this.timeAfterFire = reloadTime;
     }
 
