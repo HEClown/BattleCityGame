@@ -1,0 +1,26 @@
+package com.battlecity.game;
+
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
+public class Map {
+
+    private Texture texture;
+
+    public static final int SIZE_X = 32;
+    public static final int SIZE_Y = 16;
+    public static final int CELL_SIZE = 40;
+
+    public Map() {
+        this.texture = new Texture("Concrete_Tile.jpg");
+    }
+
+    public void render(SpriteBatch batch) {
+        for (int i = 0; i < SIZE_X; i++) {
+            for (int j = 0; j < SIZE_Y; j++) {
+                batch.draw(texture, i * CELL_SIZE, j * CELL_SIZE);
+            }
+        }
+    }
+
+}
