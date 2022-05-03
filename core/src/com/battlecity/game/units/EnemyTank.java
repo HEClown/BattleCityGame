@@ -1,7 +1,7 @@
 package com.battlecity.game.units;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -17,16 +17,16 @@ public class EnemyTank extends Tank {
 
     private boolean isActive;
 
-    public EnemyTank(GameScreen game) {
+    public EnemyTank(GameScreen game, TextureAtlas atlas) {
         super(game);
-        this.texture = new Texture("EnemyTank_Anim.png");
+        this.texture = atlas.findRegion("EnemyTankAnim");
         this.regions = new TextureRegion(texture).split(24, 36)[0];
         this.width = regions[0].getRegionWidth();
         this.height = regions[0].getRegionHeight();
         this.animTimer = 0.0f;
         this.frameIndex = 0;
         this.position = new Vector2(640, 200);
-        this.speed = 125;
+        this.speed = 25;
         this.reloadTime = 1.5f;
         this.timeAfterFire = reloadTime;
         this.indexDirection = MathUtils.random(0, Direction.values().length - 1);
@@ -35,6 +35,8 @@ public class EnemyTank extends Tank {
         this.directionTimer = 0.0f;
         this.directionPeriod = 3.0f;
         this.isActive = false;
+        this.hpMax = 3;
+        this.hp = hpMax;
     }
 
     public boolean isActive() {
@@ -62,6 +64,8 @@ public class EnemyTank extends Tank {
             setDirectionOnTouchBorders();
         }
 
+//        takeDamage();
+
         if (directionTimer >= directionPeriod) {
             directionTimer = 0.0f;
             setDirectionOnTimer();
@@ -69,6 +73,21 @@ public class EnemyTank extends Tank {
 
         position.add(speed * direction.getVelocityX() * dt, speed * direction.getVelocityY() * dt);
     }
+
+//    public void takeDamage() {
+//        for (int i = 0; i < gameScreen.getShellEmitter().MAX_SHELL_COUNT; i++) {
+//            boolean activeShell = gameScreen.getShellEmitter().getShells()[i].isActive();
+//
+//            Vector2 positionShell = new Vector2(0, 0);
+//            if (activeShell) {
+//                positionShell = gameScreen.getShellEmitter().getShells()[i].getPosition();
+//            }
+//
+//            if (activeShell && positionShell == position) {
+//                speed = 0;
+//            }
+//        }
+//    }
 
     public void activate(float x, float y) {
         isActive = true;

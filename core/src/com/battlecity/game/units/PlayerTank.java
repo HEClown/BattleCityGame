@@ -2,8 +2,8 @@ package com.battlecity.game.units;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.battlecity.game.GameScreen;
@@ -12,9 +12,9 @@ public class PlayerTank extends Tank {
 
     private boolean isMove;
 
-    public PlayerTank(GameScreen game) {
+    public PlayerTank(GameScreen game, TextureAtlas atlas) {
         super(game);
-        this.texture = new Texture("PlayerTank_Anim.png");
+        this.texture = atlas.findRegion("PlayerTankAnim");
         this.regions = new TextureRegion(texture).split(39, 47)[0];
         this.width = regions[0].getRegionWidth();
         this.height = regions[0].getRegionHeight();
@@ -26,6 +26,8 @@ public class PlayerTank extends Tank {
         this.speed = 100;
         this.reloadTime = 1.0f;
         this.timeAfterFire = reloadTime;
+        this.hpMax = 10;
+        this.hp = hpMax;
     }
 
     @Override

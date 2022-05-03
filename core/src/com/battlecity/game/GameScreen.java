@@ -2,8 +2,8 @@ package com.battlecity.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.battlecity.game.units.EnemyTank;
 import com.battlecity.game.units.PlayerTank;
 
 public class GameScreen {
@@ -22,10 +22,11 @@ public class GameScreen {
     }
 
     public void create() {
-        playerTank = new PlayerTank(this);
-        enemyTankEmitter = new EnemyTankEmitter(this);
-        shellEmitter = new ShellEmitter();
-        map = new Map();
+        TextureAtlas atlas = new TextureAtlas("textures.pack");
+        playerTank = new PlayerTank(this, atlas);
+        enemyTankEmitter = new EnemyTankEmitter(this, atlas);
+        shellEmitter = new ShellEmitter(atlas);
+        map = new Map(atlas);
     }
 
     public ShellEmitter getShellEmitter() {

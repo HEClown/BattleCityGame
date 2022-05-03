@@ -1,6 +1,7 @@
 package com.battlecity.game;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.battlecity.game.units.EnemyTank;
 
 public class EnemyTankEmitter {
@@ -9,10 +10,10 @@ public class EnemyTankEmitter {
 
     public static final int MAX_ENEMY_TANKS_COUNT = 16;
 
-    public EnemyTankEmitter(GameScreen gameScreen) {
+    public EnemyTankEmitter(GameScreen gameScreen, TextureAtlas atlas) {
         this.enemyTanks = new EnemyTank[MAX_ENEMY_TANKS_COUNT];
         for (int i = 0; i < enemyTanks.length; i++) {
-            this.enemyTanks[i] = new EnemyTank(gameScreen);
+            this.enemyTanks[i] = new EnemyTank(gameScreen, atlas);
         }
 
         for (int i = 0; i < 3; i++) {

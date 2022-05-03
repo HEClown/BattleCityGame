@@ -1,7 +1,6 @@
 package com.battlecity.game.units;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -11,7 +10,7 @@ public abstract class Tank {
 
     GameScreen gameScreen;
 
-    Texture texture;
+    TextureRegion texture;
     TextureRegion[] regions;
 
     float angleTank;
@@ -28,6 +27,8 @@ public abstract class Tank {
     float timeAfterFire;
     float reloadTime;
 
+    float hpMax;
+    float hp;
 
     public Tank(GameScreen gameScreen) {
         this.gameScreen = gameScreen;

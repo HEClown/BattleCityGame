@@ -1,18 +1,19 @@
 package com.battlecity.game;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class ShellEmitter {
 
-    private Texture shellTexture;
+    private TextureRegion shellTexture;
 
     private Shell[] shells;
 
     public static final int MAX_SHELL_COUNT = 50;
 
-    public ShellEmitter() {
-        this.shellTexture = new Texture("Tank_Shell.png");
+    public ShellEmitter(TextureAtlas atlas) {
+        this.shellTexture = atlas.findRegion("TankShell");
         this.shells = new Shell[MAX_SHELL_COUNT];
         for (int i = 0; i < shells.length; i++) {
             this.shells[i] = new Shell();
@@ -36,7 +37,7 @@ public class ShellEmitter {
     public void render(SpriteBatch batch) {
         for (int i = 0; i < shells.length; i++) {
             if (shells[i].isActive()) {
-                batch.draw(shellTexture, shells[i].getPosition().x - 2, shells[i].getPosition().y - 5, 2, 5, 3, 10, 1, 1, shells[i].getAngle(), 0, 0, 3, 10, false, false);
+                batch.draw(shellTexture, shells[i].getPosition().x - 2, shells[i].getPosition().y - 5, 2, 5, 3, 10, 1, 1, shells[i].getAngle());
             }
         }
     }

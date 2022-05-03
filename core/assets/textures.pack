@@ -1,0 +1,33 @@
+
+texture1.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+PlayerTankAnim
+  rotate: false
+  xy: 2, 2
+  size: 234, 47
+  orig: 234, 47
+  offset: 0, 0
+  index: -1
+ConcreteTile
+  rotate: false
+  xy: 2, 51
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+EnemyTankAnim
+  rotate: false
+  xy: 44, 51
+  size: 72, 36
+  orig: 72, 36
+  offset: 0, 0
+  index: -1
+TankShell
+  rotate: false
+  xy: 238, 2
+  size: 3, 10
+  orig: 3, 10
+  offset: 0, 0
+  index: -1
