@@ -16,6 +16,8 @@ public class PlayerTank extends Tank {
         super(game);
         this.texture = atlas.findRegion("PlayerTankAnim");
         this.regions = new TextureRegion(texture).split(39, 47)[0];
+        this.textureHPBarBG = atlas.findRegion("HPBarBG");
+        this.textureHPBar = atlas.findRegion("HPBar");
         this.width = regions[0].getRegionWidth();
         this.height = regions[0].getRegionHeight();
         this.angleTank = 0.0f;
@@ -41,6 +43,12 @@ public class PlayerTank extends Tank {
             frameIndex = (int) (animTimer / secondsPerFrame) % regions.length;
         }
         batch.draw(regions[frameIndex], position.x - width / 2, position.y - height / 2, width / 2, height / 2, width, height, 1, 1, angleTank);
+
+
+        if (hp < hpMax) {
+            batch.draw(textureHPBarBG, position.x - width / 2 + 2, position.y - width / 2 - 15);
+            batch.draw(textureHPBar, position.x - width / 2 + 3, position.y - width / 2 - 14, (hp / hpMax) * 33, 4);
+        }
     }
 
     @Override

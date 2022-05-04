@@ -12,6 +12,8 @@ public abstract class Tank {
 
     TextureRegion texture;
     TextureRegion[] regions;
+    TextureRegion textureHPBarBG;
+    TextureRegion textureHPBar;
 
     float angleTank;
     float animTimer;

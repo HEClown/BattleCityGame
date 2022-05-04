@@ -31,3 +31,17 @@ TankShell
   orig: 3, 10
   offset: 0, 0
   index: -1
+HPBarBG
+  rotate: false
+  xy: 2, 93
+  size: 35, 6
+  orig: 35, 6
+  offset: 0, 0
+  index: -1
+HPBar
+  rotate: false
+  xy: 2, 101
+  size: 33, 4
+  orig: 33, 4
+  offset: 0, 0
+  index: -1

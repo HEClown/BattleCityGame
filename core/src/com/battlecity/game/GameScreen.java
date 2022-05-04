@@ -1,11 +1,28 @@
+/*
+ 1. + Анимация движения
+ 2. + Стрельба
+ 3. + Враги
+ 4. Препятствия (проходимые и непроходимые)
+ 5. Механика боя
+ 6. Жизни (3 ХП у танка игрока, 1 ХП у танков врагов)
+ 7. Интерфейс (таймер перезарядки, очки, кол-во врагов и т. д.)
+ 8. Меню
+ 9. Звуки и музыка
+ 10. Эмиттеры
+ 11. Карта
+ 12. ООП
+ 13. + Края
+ 14. + Создать атлас текстур
+*/
+
 package com.battlecity.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.utils.ScreenUtils;
 import com.battlecity.game.units.PlayerTank;
 
+// Класс, в к-ом создаются главные объекты игрового экрана, обновляются и рисуются
 public class GameScreen {
 
     private final SpriteBatch batch;
@@ -37,8 +54,6 @@ public class GameScreen {
         float dt = Gdx.graphics.getDeltaTime();
 
         update(dt);
-
-        ScreenUtils.clear(0.3f, 0.3f, 0.3f, 1);
 
         batch.begin();
         map.render(batch);
