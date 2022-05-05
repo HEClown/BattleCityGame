@@ -4,16 +4,17 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+// Класс, управляющий отрисовкой и апдейтом снарядов
 public class ShellEmitter {
-
-    private TextureRegion shellTexture;
 
     private Shell[] shells;
 
-    public static final int MAX_SHELL_COUNT = 50;
+    private TextureRegion texture;
+
+    private static final int MAX_SHELL_COUNT = 50;
 
     public ShellEmitter(TextureAtlas atlas) {
-        this.shellTexture = atlas.findRegion("TankShell");
+        this.texture = atlas.findRegion("TankShell");
         this.shells = new Shell[MAX_SHELL_COUNT];
         for (int i = 0; i < shells.length; i++) {
             this.shells[i] = new Shell();
@@ -24,20 +25,10 @@ public class ShellEmitter {
         return shells;
     }
 
-    public void activate(float x, float y, float velocityX, float velocityY, float angleTank) {
-        for (int i = 0; i < shells.length; i++) {
-            if (!shells[i].isActive()) {
-                shells[i].setAngle(angleTank);
-                shells[i].activate(x, y, velocityX, velocityY);
-                break;
-            }
-        }
-    }
-
     public void render(SpriteBatch batch) {
         for (int i = 0; i < shells.length; i++) {
             if (shells[i].isActive()) {
-                batch.draw(shellTexture, shells[i].getPosition().x - 2, shells[i].getPosition().y - 5, 2, 5, 3, 10, 1, 1, shells[i].getAngle());
+                batch.draw(texture, shells[i].getPosition().x - 2, shells[i].getPosition().y - 5, 2, 5, 3, 10, 1, 1, shells[i].getAngle());
             }
         }
     }
@@ -46,6 +37,16 @@ public class ShellEmitter {
         for (int i = 0; i < shells.length; i++) {
             if (shells[i].isActive()) {
                 shells[i].update(dt);
+            }
+        }
+    }
+
+    public void activate(float x, float y, float velocityX, float velocityY, float angleTank) {
+        for (int i = 0; i < shells.length; i++) {
+            if (!shells[i].isActive()) {
+                shells[i].setAngle(angleTank);
+                shells[i].activate(x, y, velocityX, velocityY);
+                break;
             }
         }
     }

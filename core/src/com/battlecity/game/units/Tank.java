@@ -7,22 +7,24 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.battlecity.game.GameScreen;
 
+// Абстрактный класс, описывающий танк
 public abstract class Tank {
 
     GameScreen gameScreen;
 
     TextureRegion texture;
     TextureRegion[] regions;
+
     TextureRegion textureHPBarBG;
     TextureRegion textureHPBar;
+
+    float width;
+    float height;
 
     float angleTank;
     float animTimer;
     int frameIndex;
     float secondsPerFrame = 0.075f;
-
-    float width;
-    float height;
 
     Vector2 position;
     float speed;
@@ -47,6 +49,10 @@ public abstract class Tank {
 
     public abstract void update(float dt);
 
+    public boolean isTouchBorders() {
+        return position.x + height / 2 >= Gdx.graphics.getWidth() || position.x - height / 2 <= 0.0f || position.y + height / 2 >= Gdx.graphics.getHeight() || position.y - height / 2 <= 0.0f;
+    }
+
     public void fire() {
         float angleRadian = (float) Math.toRadians(angleTank + 90.0f);
         float velocityX = gameScreen.getShellEmitter().getShells()[0].getSpeed() * (float) Math.cos(angleRadian);
@@ -63,9 +69,5 @@ public abstract class Tank {
     }
 
     public abstract void destroy();
-
-    public boolean isTouchBorders() {
-        return position.x + height / 2 >= Gdx.graphics.getWidth() || position.x - height / 2 <= 0.0f || position.y + height / 2 >= Gdx.graphics.getHeight() || position.y - height / 2 <= 0.0f;
-    }
 
 }

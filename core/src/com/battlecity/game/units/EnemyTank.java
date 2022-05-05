@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.battlecity.game.Direction;
 import com.battlecity.game.GameScreen;
 
+// Класс, описываюищй танк врага
 public class EnemyTank extends Tank {
 
     private Direction direction;
@@ -49,9 +50,12 @@ public class EnemyTank extends Tank {
 
     @Override
     public void render(SpriteBatch batch) {
+        // Проигрывание анимации движения
         frameIndex = (int) (animTimer / secondsPerFrame) % regions.length;
         batch.draw(regions[frameIndex], position.x - width / 2, position.y - height / 2, width / 2, height / 2, width, height, 1, 1, angleTank);
 
+        // Если хп меньше максимального, то рисуется полоска хп
+        // Если хп максимально, то полоска хп не рисуется
         if (hp < hpMax) {
             batch.draw(textureHPBarBG, position.x - width + 7, position.y - width / 2 - 15);
             batch.draw(textureHPBar, position.x - width + 8, position.y - width / 2 - 14, (hp / hpMax) * 33, 4);
@@ -68,6 +72,7 @@ public class EnemyTank extends Tank {
             setDirectionOnTouchBorders();
         }
 
+        // Через определённое время меняется направление движения танка врага
         if (directionTimer >= directionPeriod) {
             directionTimer = 0.0f;
             setDirectionOnTimer();

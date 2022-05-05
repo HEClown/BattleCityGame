@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.battlecity.game.units.EnemyTank;
 
+// Класс, управляющий апдейтом и отрисовкой танков врагов
 public class EnemyTankEmitter {
 
     private EnemyTank[] enemyTanks;
@@ -11,13 +12,15 @@ public class EnemyTankEmitter {
     public static final int MAX_ENEMY_TANKS_COUNT = 16;
 
     public EnemyTankEmitter(GameScreen gameScreen, TextureAtlas atlas) {
+        // Создаём массив вражеских танков
         this.enemyTanks = new EnemyTank[MAX_ENEMY_TANKS_COUNT];
         for (int i = 0; i < enemyTanks.length; i++) {
             this.enemyTanks[i] = new EnemyTank(gameScreen, atlas);
         }
 
+        // Отрисовываем вражеские танки
         for (int i = 0; i < 5; i++) {
-            enemyTanks[i].activate(100 * (i + 1), 200 * (i + 1));
+            activate(100 * (i + 1), 100 * (i + 1));
         }
     }
 

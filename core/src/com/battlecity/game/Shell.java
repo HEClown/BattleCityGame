@@ -3,6 +3,7 @@ package com.battlecity.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 
+// Класс снаряда
 public class Shell {
 
     private Vector2 position;
@@ -47,7 +48,7 @@ public class Shell {
 
     public void update(float dt) {
         position.mulAdd(velocity, dt);
-        checkCollision();
+        checkCollisionWithWalls();
     }
 
     public void activate(float x, float y, float velocityX, float velocityY) {
@@ -60,7 +61,7 @@ public class Shell {
         isActive = false;
     }
 
-    public void checkCollision() {
+    public void checkCollisionWithWalls() {
         if (position.x <= 0 || position.x >= Gdx.graphics.getWidth() || position.y <= 0 || position.y >= Gdx.graphics.getHeight()) {
             deactivate();
         }
