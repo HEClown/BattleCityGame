@@ -10,12 +10,15 @@ public class Shell {
     private float angle;
     private float speed;
 
+    private float damage;
+
     private boolean isActive;
 
     public Shell() {
         this.position = new Vector2();
         this.velocity = new Vector2();
-        this.speed = 300;
+        this.speed = 400;
+        this.damage = 1;
     }
 
     public void setAngle(float angleTank) {
@@ -32,6 +35,10 @@ public class Shell {
 
     public float getSpeed() {
         return speed;
+    }
+
+    public float getDamage() {
+        return damage;
     }
 
     public boolean isActive() {

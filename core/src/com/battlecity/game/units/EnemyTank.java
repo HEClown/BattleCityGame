@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.battlecity.game.Direction;
 import com.battlecity.game.GameScreen;
@@ -28,7 +29,7 @@ public class EnemyTank extends Tank {
         this.animTimer = 0.0f;
         this.frameIndex = 0;
         this.position = new Vector2(640, 200);
-        this.speed = 25;
+        this.speed = 125;
         this.reloadTime = 1.5f;
         this.timeAfterFire = reloadTime;
         this.indexDirection = MathUtils.random(0, Direction.values().length - 1);
@@ -39,6 +40,7 @@ public class EnemyTank extends Tank {
         this.isActive = false;
         this.hpMax = 3;
         this.hp = hpMax;
+        this.hitBox = new Rectangle(position.x - width / 2, position.y - height / 2, width, height);
     }
 
     public boolean isActive() {
@@ -47,11 +49,6 @@ public class EnemyTank extends Tank {
 
     @Override
     public void render(SpriteBatch batch) {
-        drawAndAnim(batch);
-    }
-
-    @Override
-    public void drawAndAnim(SpriteBatch batch) {
         frameIndex = (int) (animTimer / secondsPerFrame) % regions.length;
         batch.draw(regions[frameIndex], position.x - width / 2, position.y - height / 2, width / 2, height / 2, width, height, 1, 1, angleTank);
 
@@ -71,30 +68,15 @@ public class EnemyTank extends Tank {
             setDirectionOnTouchBorders();
         }
 
-//        takeDamage();
-
         if (directionTimer >= directionPeriod) {
             directionTimer = 0.0f;
             setDirectionOnTimer();
         }
 
         position.add(speed * direction.getVelocityX() * dt, speed * direction.getVelocityY() * dt);
-    }
 
-//    public void takeDamage() {
-//        for (int i = 0; i < gameScreen.getShellEmitter().MAX_SHELL_COUNT; i++) {
-//            boolean activeShell = gameScreen.getShellEmitter().getShells()[i].isActive();
-//
-//            Vector2 positionShell = new Vector2(0, 0);
-//            if (activeShell) {
-//                positionShell = gameScreen.getShellEmitter().getShells()[i].getPosition();
-//            }
-//
-//            if (activeShell && positionShell == position) {
-//                speed = 0;
-//            }
-//        }
-//    }
+        hitBox.setPosition(position.x - width / 2, position.y - height / 2);
+    }
 
     public void activate(float x, float y) {
         isActive = true;
@@ -102,6 +84,10 @@ public class EnemyTank extends Tank {
         this.indexDirection = MathUtils.random(0, Direction.values().length - 1);
         this.angleTank = Direction.values()[indexDirection].getAngleTank();
         this.direction = Direction.values()[indexDirection];
+    }
+
+    public void deactivate() {
+        isActive = false;
     }
 
     public void setDirectionOnTouchBorders() {
@@ -130,6 +116,11 @@ public class EnemyTank extends Tank {
         indexDirection = MathUtils.random(0, Direction.values().length - 1);
         direction = Direction.values()[indexDirection];
         angleTank = Direction.values()[indexDirection].getAngleTank();
+    }
+
+    @Override
+    public void destroy() {
+        this.deactivate();
     }
 
 }

@@ -5,12 +5,15 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.battlecity.game.GameScreen;
 
 public class PlayerTank extends Tank {
 
     private boolean isMove;
+
+    private int lifes;
 
     public PlayerTank(GameScreen game, TextureAtlas atlas) {
         super(game);
@@ -25,25 +28,21 @@ public class PlayerTank extends Tank {
         this.isMove = false;
         this.frameIndex = 0;
         this.position = new Vector2(640, 100);
-        this.speed = 100;
+        this.speed = 75;
         this.reloadTime = 1.0f;
         this.timeAfterFire = reloadTime;
+        this.lifes = 3;
         this.hpMax = 10;
         this.hp = hpMax;
+        this.hitBox = new Rectangle(position.x - width / 2, position.y - height / 2, width, height);
     }
 
     @Override
     public void render(SpriteBatch batch) {
-        drawAndAnim(batch);
-    }
-
-    @Override
-    public void drawAndAnim (SpriteBatch batch) {
         if (isMove) {
             frameIndex = (int) (animTimer / secondsPerFrame) % regions.length;
         }
         batch.draw(regions[frameIndex], position.x - width / 2, position.y - height / 2, width / 2, height / 2, width, height, 1, 1, angleTank);
-
 
         if (hp < hpMax) {
             batch.draw(textureHPBarBG, position.x - width / 2 + 2, position.y - width / 2 - 15);
@@ -66,6 +65,8 @@ public class PlayerTank extends Tank {
             fire();
             timeAfterFire = 0;
         }
+
+        hitBox.setPosition(position.x - width / 2, position.y - height / 2);
     }
 
     public void checkMove(float dt) {
@@ -102,6 +103,11 @@ public class PlayerTank extends Tank {
         if (position.x + height / 2 >= Gdx.graphics.getWidth()) {
             position.x = Gdx.graphics.getWidth() - height / 2;
         }
+    }
+
+    @Override
+    public void destroy() {
+        lifes--;
     }
 
 }

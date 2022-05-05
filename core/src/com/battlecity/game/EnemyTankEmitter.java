@@ -16,7 +16,7 @@ public class EnemyTankEmitter {
             this.enemyTanks[i] = new EnemyTank(gameScreen, atlas);
         }
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 5; i++) {
             enemyTanks[i].activate(100 * (i + 1), 200 * (i + 1));
         }
     }

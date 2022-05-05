@@ -3,6 +3,7 @@ package com.battlecity.game.units;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.battlecity.game.GameScreen;
 
@@ -32,13 +33,17 @@ public abstract class Tank {
     float hpMax;
     float hp;
 
+    Rectangle hitBox;
+
     public Tank(GameScreen gameScreen) {
         this.gameScreen = gameScreen;
     }
 
-    public abstract void render(SpriteBatch batch);
+    public Rectangle getHitBox() {
+        return hitBox;
+    }
 
-    public abstract void drawAndAnim(SpriteBatch batch);
+    public abstract void render(SpriteBatch batch);
 
     public abstract void update(float dt);
 
@@ -48,6 +53,16 @@ public abstract class Tank {
         float velocityY = gameScreen.getShellEmitter().getShells()[0].getSpeed() * (float) Math.sin(angleRadian);
         gameScreen.getShellEmitter().activate(position.x, position.y, velocityX, velocityY, angleTank);
     }
+
+    public void takeDamage(float damage) {
+        hp -= damage;
+
+        if (hp <= 0) {
+            destroy();
+        }
+    }
+
+    public abstract void destroy();
 
     public boolean isTouchBorders() {
         return position.x + height / 2 >= Gdx.graphics.getWidth() || position.x - height / 2 <= 0.0f || position.y + height / 2 >= Gdx.graphics.getHeight() || position.y - height / 2 <= 0.0f;
