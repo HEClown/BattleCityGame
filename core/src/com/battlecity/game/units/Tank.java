@@ -1,6 +1,7 @@
 package com.battlecity.game.units;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -38,7 +39,7 @@ public abstract class Tank {
 
     protected Sound fireSound;
     protected Sound hitSound;
-    protected Sound moveSound;
+    protected Music moveSound;
 
     protected Rectangle hitBox;
 
@@ -70,7 +71,6 @@ public abstract class Tank {
         gameScreen.getShellEmitter().activate(position.x, position.y, velocityX, velocityY, angleTank);
 
         fireSound.play();
-        fireSound.resume();
     }
 
     public void takeDamage(float damage) {
@@ -80,7 +80,6 @@ public abstract class Tank {
         }
 
         hitSound.play();
-        hitSound.resume();
     }
 
     public abstract void destroy();

@@ -74,6 +74,7 @@ public class GameScreen {
         playerTank.update(dt);
 
         checkShellCollisions();
+        checkTanksCollisions();
     }
 
     // Метод для проверки столкновения снарядов с танками
@@ -100,6 +101,11 @@ public class GameScreen {
             }
 
         }
+    }
+
+    // СДЕЛАТЬ ПРОВЕРКУ СТОЛКНОВЕНИЙ МЕЖДУ ТАНКАМИ
+    public void checkTanksCollisions() {
+
     }
 
 }

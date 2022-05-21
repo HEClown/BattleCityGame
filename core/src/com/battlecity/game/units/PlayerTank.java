@@ -36,7 +36,7 @@ public class PlayerTank extends Tank {
         this.hpMax = 10;
         this.hp = hpMax;
         this.hitBox = new Rectangle(position.x - width / 2, position.y - height / 2, width, height);
-        this.moveSound = Gdx.audio.newSound(Gdx.files.internal("sounds/tankMoving.mp3"));
+        this.moveSound = Gdx.audio.newMusic(Gdx.files.internal("sounds/tankMoving.mp3"));
     }
 
     @Override
@@ -67,14 +67,19 @@ public class PlayerTank extends Tank {
 
         checkMove(dt);
 
-        if (isTouchBorders()) {
-            setPosition();
-        }
-
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && timeAfterFire >= reloadTime) {
             fire();
             timeAfterFire = 0;
         }
+
+        if (isTouchBorders()) {
+            setPosition();
+        }
+
+        if (!isMove) {
+            moveSound.stop();
+        }
+        moveSound.play();
 
         hitBox.setPosition(position.x - width / 2, position.y - height / 2);
     }
