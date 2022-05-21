@@ -28,7 +28,9 @@ public class ShellEmitter {
     public void render(SpriteBatch batch) {
         for (int i = 0; i < shells.length; i++) {
             if (shells[i].isActive()) {
-                batch.draw(texture, shells[i].getPosition().x - 2, shells[i].getPosition().y - 5, 2, 5, 3, 10, 1, 1, shells[i].getAngle());
+                batch.draw(texture, shells[i].getPosition().x - 2, shells[i].getPosition().y - 5,
+                        2, 5, 3, 10,
+                        1, 1, shells[i].getAngle());
             }
         }
     }

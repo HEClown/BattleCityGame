@@ -62,7 +62,8 @@ public class Shell {
     }
 
     public void checkCollisionWithWalls() {
-        if (position.x <= 0 || position.x >= Gdx.graphics.getWidth() || position.y <= 0 || position.y >= Gdx.graphics.getHeight()) {
+        if (position.x <= 0 || position.x >= Gdx.graphics.getWidth()
+                || position.y <= 0 || position.y >= Gdx.graphics.getHeight()) {
             deactivate();
         }
     }

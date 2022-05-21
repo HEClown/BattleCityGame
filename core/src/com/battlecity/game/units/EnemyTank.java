@@ -30,7 +30,7 @@ public class EnemyTank extends Tank {
         this.animTimer = 0.0f;
         this.frameIndex = 0;
         this.position = new Vector2(640, 200);
-        this.speed = 125;
+        this.speed = 80;
         this.reloadTime = 1.5f;
         this.timeAfterFire = reloadTime;
         this.indexDirection = MathUtils.random(0, Direction.values().length - 1);
@@ -52,13 +52,16 @@ public class EnemyTank extends Tank {
     public void render(SpriteBatch batch) {
         // Проигрывание анимации движения
         frameIndex = (int) (animTimer / secondsPerFrame) % regions.length;
-        batch.draw(regions[frameIndex], position.x - width / 2, position.y - height / 2, width / 2, height / 2, width, height, 1, 1, angleTank);
+        batch.draw(regions[frameIndex], position.x - width / 2, position.y - height / 2,
+                width / 2, height / 2, width, height,
+                1, 1, angleTank);
 
         // Если хп меньше максимального, то рисуется полоска хп
         // Если хп максимально, то полоска хп не рисуется
         if (hp < hpMax) {
             batch.draw(textureHPBarBG, position.x - width + 7, position.y - width / 2 - 15);
-            batch.draw(textureHPBar, position.x - width + 8, position.y - width / 2 - 14, (hp / hpMax) * 33, 4);
+            batch.draw(textureHPBar, position.x - width + 8, position.y - width / 2 - 14,
+                    (hp / hpMax) * 33, 4);
         }
     }
 

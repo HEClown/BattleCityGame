@@ -1,6 +1,7 @@
 package com.battlecity.game.units;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
@@ -10,35 +11,41 @@ import com.battlecity.game.GameScreen;
 // Абстрактный класс, описывающий танк
 public abstract class Tank {
 
-    GameScreen gameScreen;
+    protected GameScreen gameScreen;
 
-    TextureRegion texture;
-    TextureRegion[] regions;
+    protected TextureRegion texture;
+    protected TextureRegion[] regions;
 
-    TextureRegion textureHPBarBG;
-    TextureRegion textureHPBar;
+    protected TextureRegion textureHPBarBG;
+    protected TextureRegion textureHPBar;
 
-    float width;
-    float height;
+    protected float width;
+    protected float height;
 
-    float angleTank;
-    float animTimer;
-    int frameIndex;
-    float secondsPerFrame = 0.075f;
+    protected float angleTank;
+    protected float animTimer;
+    protected int frameIndex;
+    protected float secondsPerFrame = 0.075f;
 
-    Vector2 position;
-    float speed;
+    protected Vector2 position;
+    protected float speed;
 
-    float timeAfterFire;
-    float reloadTime;
+    protected float timeAfterFire;
+    protected float reloadTime;
 
-    float hpMax;
-    float hp;
+    protected float hpMax;
+    protected float hp;
 
-    Rectangle hitBox;
+    protected Sound fireSound;
+    protected Sound hitSound;
+    protected Sound moveSound;
+
+    protected Rectangle hitBox;
 
     public Tank(GameScreen gameScreen) {
         this.gameScreen = gameScreen;
+        this.fireSound = Gdx.audio.newSound(Gdx.files.internal("sounds/tankFireSound.wav"));
+        this.hitSound = Gdx.audio.newSound(Gdx.files.internal("sounds/tankHitSound.wav"));
     }
 
     public Rectangle getHitBox() {
@@ -50,7 +57,10 @@ public abstract class Tank {
     public abstract void update(float dt);
 
     public boolean isTouchBorders() {
-        return position.x + height / 2 >= Gdx.graphics.getWidth() || position.x - height / 2 <= 0.0f || position.y + height / 2 >= Gdx.graphics.getHeight() || position.y - height / 2 <= 0.0f;
+        return position.x + height / 2 >= Gdx.graphics.getWidth()
+                || position.x - height / 2 <= 0.0f
+                || position.y + height / 2 >= Gdx.graphics.getHeight()
+                || position.y - height / 2 <= 0.0f;
     }
 
     public void fire() {
@@ -58,14 +68,19 @@ public abstract class Tank {
         float velocityX = gameScreen.getShellEmitter().getShells()[0].getSpeed() * (float) Math.cos(angleRadian);
         float velocityY = gameScreen.getShellEmitter().getShells()[0].getSpeed() * (float) Math.sin(angleRadian);
         gameScreen.getShellEmitter().activate(position.x, position.y, velocityX, velocityY, angleTank);
+
+        fireSound.play();
+        fireSound.resume();
     }
 
     public void takeDamage(float damage) {
         hp -= damage;
-
         if (hp <= 0) {
             destroy();
         }
+
+        hitSound.play();
+        hitSound.resume();
     }
 
     public abstract void destroy();

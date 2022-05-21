@@ -36,6 +36,7 @@ public class PlayerTank extends Tank {
         this.hpMax = 10;
         this.hp = hpMax;
         this.hitBox = new Rectangle(position.x - width / 2, position.y - height / 2, width, height);
+        this.moveSound = Gdx.audio.newSound(Gdx.files.internal("sounds/tankMoving.mp3"));
     }
 
     @Override
@@ -45,13 +46,17 @@ public class PlayerTank extends Tank {
         if (isMove) {
             frameIndex = (int) (animTimer / secondsPerFrame) % regions.length;
         }
-        batch.draw(regions[frameIndex], position.x - width / 2, position.y - height / 2, width / 2, height / 2, width, height, 1, 1, angleTank);
+        batch.draw(regions[frameIndex], position.x - width / 2, position.y - height / 2,
+                width / 2, height / 2,
+                width, height,
+                1, 1, angleTank);
 
         // Если хп меньше максимального, то рисуется полоска хп
         // Если хп максимально, то полоска хп не рисуется
         if (hp < hpMax) {
             batch.draw(textureHPBarBG, position.x - width / 2 + 2, position.y - width / 2 - 15);
-            batch.draw(textureHPBar, position.x - width / 2 + 3, position.y - width / 2 - 14, (hp / hpMax) * 33, 4);
+            batch.draw(textureHPBar, position.x - width / 2 + 3, position.y - width / 2 - 14,
+                    (hp / hpMax) * 33, 4);
         }
     }
 
