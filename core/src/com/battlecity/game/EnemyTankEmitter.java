@@ -9,7 +9,10 @@ public class EnemyTankEmitter {
 
     private EnemyTank[] enemyTanks;
 
-    public static final int MAX_ENEMY_TANKS_COUNT = 16;
+    public static final int MAX_ENEMY_TANKS_COUNT = 64;
+
+    private float spawnTimer;
+    private float spawnCount;
 
     public EnemyTankEmitter(GameScreen gameScreen, TextureAtlas atlas) {
         // Создаём массив вражеских танков
@@ -18,23 +21,12 @@ public class EnemyTankEmitter {
             this.enemyTanks[i] = new EnemyTank(gameScreen, atlas);
         }
 
-        // Отрисовываем вражеские танки
-        for (int i = 0; i < 5; i++) {
-            activate(100 * (i + 1), 100 * (i + 1));
-        }
+        this.spawnTimer = 0;
+        this.spawnCount = 1;
     }
 
     public EnemyTank[] getEnemyTanks() {
         return enemyTanks;
-    }
-
-    public void activate(float x, float y) {
-        for (int i = 0; i < enemyTanks.length; i++) {
-            if (!enemyTanks[i].isActive()) {
-                enemyTanks[i].activate(x, y);
-                break;
-            }
-        }
     }
 
     public void render(SpriteBatch batch) {
@@ -46,9 +38,28 @@ public class EnemyTankEmitter {
     }
 
     public void update(float dt) {
+        // Отрисовка вражеских танков
+        spawnTimer += dt;
+        if (spawnTimer >= 5 && spawnCount <= 3) {
+            spawnTimer = 0;
+            for (int i = 0; i < spawnCount; i++) {
+                activate(100 * (i + 1), 550);
+            }
+            spawnCount++;
+        }
+
         for (int i = 0; i < enemyTanks.length; i++) {
             if (enemyTanks[i].isActive()) {
                 enemyTanks[i].update(dt);
+            }
+        }
+    }
+
+    public void activate(float x, float y) {
+        for (int i = 0; i < enemyTanks.length; i++) {
+            if (!enemyTanks[i].isActive()) {
+                enemyTanks[i].activate(x, y);
+                break;
             }
         }
     }
